@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Final Assignment</title>
+    <style>
+    .dt{
+    display: flex;
+    background:#f4f4f4;
+    padding:10px;
+    margin-bottom:10px;
+  }
+
+  .dt ul{
+    list-style: none;
+    }
+  
+    </style>
+</head>
+<body>
+<button id="button">Load GitHub Users</button>
+<br><br>
+<h1>Github Users</h1>
+<div id="show"></div>
+
+<script>
+  document.getElementById('button').addEventListener('click', loadm);
+
+  
+  function loadm(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://api.github.com/users');
+
+    xhr.onload = function(){
+      if(xhr.status == 200){
+        var data = JSON.parse(xhr.responseText);
+
+        var output = '';
+        for(var i=0;i<5;i++){
+          output +=
+            '<div class="dt">' +
+            '<img src="'+data[i].avatar_url+'" width="70" height="70">' +
+            '<ul>' +
+            '<li>ID: '+data[i].id+'</li>' +
+            '<li>Login: '+data[i].login+'</li>' +
+            '</ul>' +
+            '</div>';
+        }
+
+        document.getElementById('show').innerHTML = output;
+      }
+    }
+
+    xhr.send();
+  }
+</script>
+
+
+</body>
+</html>
